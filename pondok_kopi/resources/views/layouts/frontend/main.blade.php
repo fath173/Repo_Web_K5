@@ -18,10 +18,14 @@
 <body>
 
     @include('layouts.frontend.navbar')
-    @yield('content')
+    @yield('kontent')
 
-
-
+    <main class="py-4">
+        @yield('content')
+        <div class="container-fluid">
+            {{ isset($slot) ? $slot : null }}
+        </div>
+    </main>
     @livewireScripts
     @include('layouts.frontend.js')
 </body>
