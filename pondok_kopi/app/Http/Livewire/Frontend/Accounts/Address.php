@@ -3,11 +3,91 @@
 namespace App\Http\Livewire\Frontend\Accounts;
 
 use Livewire\Component;
+use App\Models\User;
+use Kavist\RajaOngkir\Facades\RajaOngkir;
 
 class Address extends Component
 {
+
+    public $user_id;
+    public $address, $dataProvince, $dataDistrict, $namaProvince,  $namaDistrict; // Ditampilkan
+    public $province, $district, $provinceId, $districtId;
+
     public function render()
     {
-        return view('livewire.frontend.accounts.address');
+        $user = User::find(Auth()->id());
+        $this->province = $user->province;
+        $this->district = $user->district;
+        $this->getProvince();
+        $this->getDistrict();
+
+        return view('livewire.frontend.accounts.address', [
+            'user' => $user,
+        ]);
+    }
+
+    private function resetField()
+    {
+        $this->user_id = '';
+        $this->address = '';
+    }
+
+    public function cancel()
+    {
+        $this->resetField();
+    }
+
+    public function edit()
+    {
+        $user = User::find(Auth()->id());
+        $this->user_id = $user->id;
+        $this->address = $user->address;
+    }
+
+    public function getProvince()
+    {
+        $this->dataProvince = RajaOngkir::provinsi()->all();
+        $prov = RajaOngkir::provinsi()->find($this->province);
+        $this->namaProvince = $prov['province'];
+    }
+
+    public function getDistrict()
+    {
+        if ($this->provinceId) {
+            $this->dataDistrict = RajaOngkir::kota()->dariProvinsi($this->provinceId)->get();
+        } else {
+            $this->dataDistrict = RajaOngkir::kota()->dariProvinsi($this->province)->get();
+        }
+        $dist = RajaOngkir::kota()->find($this->district);
+        $this->namaDistrict = $dist['city_name'];
+    }
+
+    public function updateAddress()
+    {
+        $this->validate([
+            'provinceId' => 'required',
+            'districtId' => 'required',
+            'province' => 'required',
+            'district' => 'required',
+            'address' => 'required'
+        ]);
+        User::where('id', $this->user_id)
+            ->update([
+                'address' => $this->address,
+            ]);
+        if ($this->provinceId && $this->districtId) {
+            User::where('id', $this->user_id)
+                ->update([
+                    'province' => $this->provinceId,
+                    'district' => $this->districtId,
+                ]);
+        } else if ($this->address) {
+            User::where('id', $this->user_id)
+                ->update([
+                    'province' => $this->province,
+                    'district' => $this->district,
+                ]);
+        }
+        // $this->resetField();
     }
 }

@@ -1,5 +1,5 @@
 <!--? Preloader Start -->
-<div id="preloader-active">
+{{-- <div id="preloader-active">
     <div class="preloader d-flex align-items-center justify-content-center">
         <div class="preloader-inner position-relative">
             <div class="preloader-circle"></div>
@@ -8,7 +8,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- Preloader Start -->
 <header>
     <!-- Header Start -->
@@ -18,44 +18,42 @@
                 <div class="menu-wrapper">
                     <!-- Logo -->
                     <div class="logo">
-                        <a href="index.html"><img src="{{ asset('frontend/assets/img/logo/logo.png') }}" alt=""></a>
+                        <a href="index.html"><img src="{{ asset('frontend/logo/logo_pkopi2.png') }}" height="60px"
+                                alt=""></a>
                     </div>
                     <!-- Main-menu -->
                     <div class="main-menu d-none d-lg-block">
                         <nav>
-                            @if (Route::has('login'))
-                                <ul id="navigation">
-                                    <li><a href="{{ url('/home') }}">Home</a></li>
-                                    @auth
-                                        <li><a href="{{ url('/home') }}">Home</a></li>
-                                    @else
+                            <ul id="navigation">
+                                @guest
+                                    @if (Route::has('login'))
+                                        <li><a href="{{ url('/') }}">Home</a></li>
                                         <li><a href="{{ route('login') }}">Login</a></li>
-                                        @if (Route::has('register'))
-                                            <li><a href="{{ route('register') }}">Daftar</a></li>
-                                        @endif
-                                    @endauth
-                                    {{-- <li class="hot"><a href="#">Latest</a>
-                                    <ul class="submenu">
-                                        <li><a href="shop.html"> Product list</a></li>
-                                        <li><a href="product_details.html"> Product Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="blog.html">Blog</a>
-                                    <ul class="submenu">
-                                        <li><a href="blog.html">Blog</a></li>
-                                        <li><a href="blog-details.html">Blog Details</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="submenu">
-                                        <li><a href="cart.html">Cart</a></li>
-                                        <li><a href="elements.html">Element</a></li>
-                                        <li><a href="confirmation.html">Confirmation</a></li>
-                                        <li><a href="checkout.html">Product Checkout</a></li>
-                                    </ul>
-                                </li> --}}
-                                </ul>
-                            @endif
+                                    @endif
+                                    @if (Route::has('register'))
+                                        <li><a href="{{ route('register') }}">Daftar</a></li>
+                                    @endif
+                                @else
+                                    <li><a href="/products">Products</a></li>
+                                    <li><a href="/account">Akun </a></li>
+                                    <li><a href="/cart">Cart
+                                            <livewire:frontend.carts.button-carts />
+                                        </a></li>
+                                    <li><a href="blog.html">{{ Auth::user()->name }}</a>
+                                        <ul class="submenu">
+                                            <li><a href="/orders">Orders</a></li>
+                                            <li><a href="{{ route('logout') }}"
+                                                    onclick="event.preventDefault();
+                                                                                                                                    document.getElementById('logout-form').submit();">Logout</a>
+                                            </li>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
+                                        </ul>
+                                    </li>
+                                @endguest
+                            </ul>
                         </nav>
                     </div>
                     <!-- Header Right -->
@@ -67,7 +65,11 @@
                                 </div>
                             </li>
                             <li> <a href="login.html"><span class="flaticon-user"></span></a></li>
-                            <li><a href="cart.html"><span class="flaticon-shopping-cart"></span></a> </li>
+                            <li><a href="/cart"><span class="flaticon-shopping-cart">
+                                        {{-- <livewire:frontend.carts.button-carts /> --}}
+                                    </span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

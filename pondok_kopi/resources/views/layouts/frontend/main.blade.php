@@ -17,7 +17,7 @@
 
 <body>
 
-    @include('layouts.frontend.navbar')
+    {{-- @include('layouts.frontend.navbar') --}}
     @yield('kontent')
 
     <main class="py-4">

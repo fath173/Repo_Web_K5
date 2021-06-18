@@ -1,3 +1,3 @@
-<div>
-    {{-- The best athlete wants his opponent at his best. --}}
-</div>
+<b class="bg-danger rounded text-light p-1">
+    {{ $this->qty['sumQty'] }}
+</b>
