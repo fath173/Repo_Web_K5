@@ -66,10 +66,10 @@
                                             <li><a href="{{ url('/') }}">Home</a></li>
                                             @guest
                                                 @if (Route::has('login'))
-                                                    <li><a href="{{ route('login') }}">Login</a></li>
+                                                    <li><a href="{{ route('loginn') }}">Login</a></li>
                                                 @endif
                                                 @if (Route::has('register'))
-                                                    <li><a href="{{ route('register') }}">Daftar</a></li>
+                                                    <li><a href="{{ route('registerr') }}">Daftar</a></li>
                                                 @endif
                                             @else
                                                 <li><a href="/products">Produk</a></li>

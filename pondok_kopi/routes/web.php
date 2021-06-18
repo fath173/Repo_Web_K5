@@ -1,5 +1,12 @@
 <?php
 
+// untuk Auth
+use App\Http\Livewire\Auth\Login as loginn;
+use App\Http\Livewire\Auth\Register as regis;
+// use App\Http\Livewire\Auth\Logout;
+
+
+
 // untuk backend
 use App\Http\Controllers\Backend\orderadmin;
 use App\Http\Livewire\Backend\Gallery\Galeri;
@@ -46,20 +53,20 @@ Route::get('/admin/main', function () {
 
 Auth::routes();
 
-// Route::get('/admin/orders', orderadmin::class);
-Route::group(
-    ['namespace' => 'App\Http\Controllers\Backend'],
-    function () {
-        Route::resource('/admin/orders', orderadmin::class);
-        Route::resource('/pengalaman_kerja', PengalamanKerjaController::class);
-    }
-);
-
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::group(['middleware' => 'guest'], function(){
+
+    Route::get('/loginn', loginn::class)->name('loginn');
+    Route::get('/registerr', regis::class)->name('registerr');
+    Route::get('/', function () {
+        return view('livewire.frontend.index');
+    });
+});
+
 Route::group(['middleware' => ['auth']], function () {
+
     // URL untuk Halaman Pelanggan atau Landing Page
     Route::get('/products', Product::class);
     Route::get('/products/{id}', Detail::class);
