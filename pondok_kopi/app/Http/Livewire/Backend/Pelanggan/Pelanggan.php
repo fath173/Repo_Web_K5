@@ -16,6 +16,7 @@ class Pelanggan extends Component
         $redi = new Redirec();
         $redi->redirec();
 
+        //ini coding untuk memanggil data daari database
         $dataPelanggan = User::where('level', 'pelanggan')->orderBy('id', 'DESC')->get();
 
         return view('livewire.backend.pelanggan.pelanggan', [
