@@ -21,7 +21,7 @@
                                 <td>
                                     {{ $loop->iteration }}
                                 </td>
-                                <td>{{ date('d - m - Y', strtotime($pelanggan->name)) }}</td>
+                                <td>{{ $pelanggan->name }}</td>
                                 <td>{{ $pelanggan->gender }}</td>
                                 <td>{{ $pelanggan->phone_number }} </td>
                                 <td><button type="button" class="btn btn-sm btn-info mb-1" data-toggle="modal"
@@ -44,11 +44,26 @@
                                         </div>
                                         <div class="modal-body">
 
-                                            <h1>Isi Detail data pelanggan disini!</h1>
-
-                                        </div>
+                                            
+                                                <div class="row border-top mb-3 mt-2">
+                                                Email :
+                                                <div class="col-3" > 
+                                               {{ $pelanggan->email }}
+                                                 </div>
+                                                 </div>
+                                                
+                                                 <div class="row border-top mb-3 mt-2">
+                                                 Alamat :
+                                                <div class="col">
+                                                {{ $pelanggan->address }}
+                                              </div>
+                                              </div>                 
+                                              </div>                  
+                                                            
+                                                         
+                                                     
                                         <div class="modal-footer">
-                                            <button type="button" wire:click="cancelOrder('{{ $pelanggan->id }}')"
+                                            <button type="button" wire:click="cancelPelanggan('{{ $pelanggan->id }}')"
                                                 class="btn btn-danger">Tolak</button>
 
                                         </div>
