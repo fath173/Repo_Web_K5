@@ -343,12 +343,12 @@
                                         <b class="bg-danger text-light">Pesanan Dibatalkan</b>
                                     @elseif ($orders[0]->status == 'selesai' && empty($testi))
                                         <div class="container">
-
                                             <div class="row mb-3">
                                                 <b class="bg-success text-light">Selesai</b>
                                             </div>
                                             <div class="row">
-                                                <button wire:click="" class="genric-btn danger medium">Berikan
+                                                <button data-toggle="modal" data-target="#updateTesti"
+                                                    wire:click="edit()" class="genric-btn link-border radius">Berikan
                                                     Testimoni</button>
                                             </div>
                                         </div>
@@ -358,6 +358,8 @@
                                     {{-- <a href="/orders-purchase/{{ $orders[0]->id }}"class="genric-btn primary-border medium">Nota</a> --}}
                                 </div>
                             </div>
+
+
 
                             <div class="media post_item mt-5">
                                 <div class="media-body">

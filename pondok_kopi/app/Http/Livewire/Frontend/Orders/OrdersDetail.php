@@ -10,7 +10,7 @@ use App\Models\Testimonial;
 class OrdersDetail extends Component
 {
 
-    public $id_orders;
+    public $id_user, $id_orders, $testimoni;
 
     public function mount($id)
     {
@@ -18,6 +18,7 @@ class OrdersDetail extends Component
     }
     public function render()
     {
+        $this->id_user = Auth()->id();
         // dd($this->testi());
         return view('livewire.frontend.orders.orders-detail', [
             'orders' => $this->orders(),
@@ -28,8 +29,28 @@ class OrdersDetail extends Component
 
     public function testi()
     {
-        $testi = Testimonial::where('id_pesan', $this->id_orders);
+        $testi = Testimonial::where('id_pesanan', $this->id_orders)->get();
         return $testi;
+    }
+
+    public function updateTesti()
+    {
+        $this->validate([
+            'testimoni' => 'required',
+            'id_user' => 'required',
+        ]);
+
+        date_default_timezone_set('Asia/Jakarta');
+        $waktu = date('Y-m-d H:i:s');
+
+        Testimonial::create([
+            'id_user' => $this->id_user,
+            'id_pesanan' => $this->id_orders,
+            'tgl_testi' => $waktu,
+            'kesan' => $this->testimoni,
+            'status_baca' => 'Yes',
+
+        ]);
     }
 
     public function orders()
