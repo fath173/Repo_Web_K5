@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Frontend\Orders;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
+use App\Models\Testimonial;
 
 class OrdersDetail extends Component
 {
@@ -17,12 +18,20 @@ class OrdersDetail extends Component
     }
     public function render()
     {
-        // dd($this->detailOrders($this->id_orders)['ordersDetail']);
+        // dd($this->testi());
         return view('livewire.frontend.orders.orders-detail', [
             'orders' => $this->orders(),
+            'testi' => $this->testi(),
             'ordersDetail' => $this->detailOrders($this->id_orders)
         ]);
     }
+
+    public function testi()
+    {
+        $testi = Testimonial::where('id_pesan', $this->id_orders);
+        return $testi;
+    }
+
     public function orders()
     {
         $orders = Order::where('id', $this->id_orders)->get();

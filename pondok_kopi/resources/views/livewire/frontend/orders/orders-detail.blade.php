@@ -341,6 +341,17 @@
                                             Konfirmasi Diterima</button>
                                     @elseif ($orders[0]->status == 'dibatalkan')
                                         <b class="bg-danger text-light">Pesanan Dibatalkan</b>
+                                    @elseif ($orders[0]->status == 'selesai' && empty($testi))
+                                        <div class="container">
+
+                                            <div class="row mb-3">
+                                                <b class="bg-success text-light">Selesai</b>
+                                            </div>
+                                            <div class="row">
+                                                <button wire:click="" class="genric-btn danger medium">Berikan
+                                                    Testimoni</button>
+                                            </div>
+                                        </div>
                                     @elseif ($orders[0]->status == 'selesai')
                                         <b class="bg-success text-light">Selesai</b>
                                     @endif
