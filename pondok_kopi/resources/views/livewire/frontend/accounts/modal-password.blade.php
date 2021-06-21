@@ -14,29 +14,29 @@
                     <div class="form-group">
                         <input type="hidden" wire:model="user_id">
                         <label for="exampleFormControlInput1">Old Password</label>
-                        <input type="text" class="form-control" wire:model="" id="exampleFormControlInput1"
+                        <input type="password" class="form-control" wire:model="password_old"
                             placeholder="Enter Old Password">
-                        @error('') <span class="text-danger">{{ $message }}</span>@enderror
+                        @error('password_old') <span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput2">New Password</label>
-                        <input type="email" class="form-control" wire:model="" id="exampleFormControlInput2"
+                        <input type="password" class="form-control" wire:model="password_new"
                             placeholder="Enter New Password">
-                        @error('') <span class="text-danger">{{ $message }}</span>@enderror
+                        @error('password_new') <span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput2">Retype New Password</label>
-                        <input type="email" class="form-control" wire:model="" id="exampleFormControlInput2"
+                        <input type="password" class="form-control" wire:model="confirm_password"
                             placeholder="Retype New Password">
-                        @error('') <span class="text-danger">{{ $message }}</span>@enderror
+                        @error('confirm_password') <span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" wire:click.prevent="cancel()" class="genric-btn primary"
                     data-dismiss="modal">Close</button>
-                <button type="button" wire:click.prevent="updateContact()" class="genric-btn danger"
-                    data-dismiss="modal">Save Contact</button>
+                <button type="button" wire:click.prevent="updatePassword()" class="genric-btn danger">Save
+                    Password</button>
             </div>
         </div>
     </div>

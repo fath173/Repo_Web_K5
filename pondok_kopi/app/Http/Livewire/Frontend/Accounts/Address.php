@@ -18,6 +18,7 @@ class Address extends Component
         $user = User::find(Auth()->id());
         $this->province = $user->province;
         $this->district = $user->district;
+
         $this->getProvince();
         $this->getDistrict();
 
@@ -46,9 +47,13 @@ class Address extends Component
 
     public function getProvince()
     {
-        $this->dataProvince = RajaOngkir::provinsi()->all();
-        $prov = RajaOngkir::provinsi()->find($this->province);
-        $this->namaProvince = $prov['province'];
+        if (empty($this->province)) {
+            $this->dataProvince = RajaOngkir::provinsi()->all();
+        } else {
+            $this->dataProvince = RajaOngkir::provinsi()->all();
+            $prov = RajaOngkir::provinsi()->find($this->province);
+            $this->namaProvince = $prov['province'];
+        }
     }
 
     public function getDistrict()
@@ -58,36 +63,48 @@ class Address extends Component
         } else {
             $this->dataDistrict = RajaOngkir::kota()->dariProvinsi($this->province)->get();
         }
-        $dist = RajaOngkir::kota()->find($this->district);
-        $this->namaDistrict = $dist['city_name'];
+        if (!empty($this->district)) {
+            $dist = RajaOngkir::kota()->find($this->district);
+            $this->namaDistrict = $dist['city_name'];
+        }
     }
 
     public function updateAddress()
     {
         $this->validate([
-            'provinceId' => 'required',
-            'districtId' => 'required',
-            'province' => 'required',
-            'district' => 'required',
             'address' => 'required'
         ]);
+        // dd($this->user_id);
         User::where('id', $this->user_id)
             ->update([
                 'address' => $this->address,
             ]);
         if ($this->provinceId && $this->districtId) {
+            $this->validate([
+                'provinceId' => 'required',
+                'districtId' => 'required',
+            ]);
             User::where('id', $this->user_id)
                 ->update([
                     'province' => $this->provinceId,
                     'district' => $this->districtId,
                 ]);
         } else if ($this->address) {
+            $this->validate([
+                'province' => 'required',
+                'district' => 'required',
+            ]);
             User::where('id', $this->user_id)
                 ->update([
                     'province' => $this->province,
                     'district' => $this->district,
                 ]);
         }
-        // $this->resetField();
+        $this->emit("swal:modal", [
+            'type'    => 'success',
+            'icon'    => 'success',
+            'title'   => 'Berhasil menyimpan alamat',
+            'timeout' => 3000,
+        ]);
     }
 }

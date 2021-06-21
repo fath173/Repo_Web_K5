@@ -48,10 +48,13 @@
                     </div>
                 </form>
             </div>
+            <h1>{{ $provinceId }}</h1>
+            <h1>{{ $districtId }}</h1>
+            <h1>{{ $address }}</h1>
             <div class="modal-footer">
                 <button type="button" wire:click.prevent="cancel()" class="genric-btn primary"
                     data-dismiss="modal">Close</button>
-                <button type="submit" wire:click.prevent="updateAddress()" class="genric-btn danger">Simpan
+                <button type="submit" wire:click="updateAddress()" class="genric-btn danger">Simpan
                     Alamat</button>
             </div>
         </div>

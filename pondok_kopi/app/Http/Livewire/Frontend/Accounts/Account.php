@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class Account extends Component
 {
@@ -14,6 +15,7 @@ class Account extends Component
     use WithFileUploads;
     public $user_id;
     public $name, $username, $phone_number, $email, $birthday, $gender, $image, $images;
+    public $password_old, $password_new, $confirm_password;
 
     protected $listeners = ['resetField'];
 
@@ -39,6 +41,9 @@ class Account extends Component
         $this->gender = '';
         $this->address = '';
         $this->image = '';
+        $this->password_old = '';
+        $this->password_new = '';
+        $this->confirm_password = '';
     }
 
     public function cancel()
@@ -117,5 +122,37 @@ class Account extends Component
                 'phone_number' => $this->phone_number
             ]);
         // $this->resetField();
+    }
+
+    public function updatePassword()
+    {
+        $this->validate([
+            'password_old' => 'required',
+            'password_new' => 'required|min:8',
+            'confirm_password' => 'required|same:password_new',
+        ]);
+
+        $user = User::find($this->user_id);
+        if (!Hash::check($this->password_old, $user->password)) {
+            $this->emit("swal:modal", [
+                'type'    => 'danger',
+                'icon'    => 'error',
+                'title'   => 'Masukkan password lama anda dengan benar!',
+                'timeout' => 3000,
+            ]);
+        } else {
+            User::where('id', $this->user_id)
+                ->update([
+                    'password' => Hash::make($this->confirm_password),
+                ]);
+
+            $this->resetField();
+            $this->emit("swal:modal", [
+                'type'    => 'success',
+                'icon'    => 'success',
+                'title'   => 'Password Anda Telah Berhasil Diperbarui.',
+                'timeout' => 3000,
+            ]);
+        }
     }
 }
