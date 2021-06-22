@@ -6,11 +6,12 @@ use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use App\Models\Testimonial;
+use Mockery\Undefined;
 
 class OrdersDetail extends Component
 {
 
-    public $id_user, $id_orders, $testimoni;
+    public $id_user, $id_orders, $kesan;
 
     public function mount($id)
     {
@@ -19,7 +20,7 @@ class OrdersDetail extends Component
     public function render()
     {
         $this->id_user = Auth()->id();
-        // dd($this->testi());
+
         return view('livewire.frontend.orders.orders-detail', [
             'orders' => $this->orders(),
             'testi' => $this->testi(),
@@ -29,15 +30,14 @@ class OrdersDetail extends Component
 
     public function testi()
     {
-        $testi = Testimonial::where('id_pesanan', $this->id_orders)->get();
+        $testi = DB::select('select id_pesanan from testimonials where id_pesanan = ' . $this->id_orders);
         return $testi;
     }
 
     public function updateTesti()
     {
         $this->validate([
-            'testimoni' => 'required',
-            'id_user' => 'required',
+            'kesan' => 'required',
         ]);
 
         date_default_timezone_set('Asia/Jakarta');
@@ -47,9 +47,16 @@ class OrdersDetail extends Component
             'id_user' => $this->id_user,
             'id_pesanan' => $this->id_orders,
             'tgl_testi' => $waktu,
-            'kesan' => $this->testimoni,
+            'kesan' => $this->kesan,
             'status_baca' => 'Yes',
 
+        ]);
+        $this->kesan = '';
+        $this->emit("swal:modal", [
+            'type' => 'success',
+            'icon' => 'success',
+            'title' => 'Testimoni anda sudah terkirim!',
+            'timeout' => 3000,
         ]);
     }
 

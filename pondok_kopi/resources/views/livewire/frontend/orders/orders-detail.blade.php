@@ -341,14 +341,14 @@
                                             Konfirmasi Diterima</button>
                                     @elseif ($orders[0]->status == 'dibatalkan')
                                         <b class="bg-danger text-light">Pesanan Dibatalkan</b>
-                                    @elseif ($orders[0]->status == 'selesai' && empty($testi))
+                                    @elseif (empty($testi) && $orders[0]->status == 'selesai' )
                                         <div class="container">
-                                            <div class="row mb-3">
+                                            <div class="row mb-3 d-flex justify-content-center">
                                                 <b class="bg-success text-light">Selesai</b>
                                             </div>
-                                            <div class="row">
+                                            <div class="row d-flex justify-content-center">
                                                 <button data-toggle="modal" data-target="#updateTesti"
-                                                    wire:click="edit()" class="genric-btn link-border radius">Berikan
+                                                    class="genric-btn danger radius">Berikan
                                                     Testimoni</button>
                                             </div>
                                         </div>
@@ -359,6 +359,41 @@
                                 </div>
                             </div>
 
+                            {{-- awal modal Kontak --}}
+                            <div wire:ignore.self class="modal fade" id="updateTesti" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Testimoni</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <input type="hidden" wire:model="user_id">
+                                                    <label for="exampleFormControlInput1">Tulis Testimoni Anda
+                                                        Disini:</label>
+                                                    <textarea class="form-control" aria-required="true"
+                                                        aria-invalid="false" wire:model.lazy="kesan"> </textarea>
+                                                    @error('kesan')<small
+                                                        class="text-danger">{{ $message }}</small>@enderror
+                                                </div>
+                                            </form>
+                                            <h1>{{ $kesan }}</h1>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" wire:click="cancel()" class="genric-btn primary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="button" wire:click="updateTesti()" class="genric-btn danger"
+                                                data-dismiss="modal">Kirim</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- akhir modal Kontak --}}
 
 
                             <div class="media post_item mt-5">
