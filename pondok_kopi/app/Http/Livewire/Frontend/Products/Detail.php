@@ -18,8 +18,6 @@ class Detail extends Component
     public function mount($id)
     {
         $this->details = VariasiModel::where('id', $id)->get();
-        // $this->details = VariasiModels::where('id', $id)->get();
-        // dd($this->details[0]->variasi);
 
         foreach ($this->details[0]->variasi as $detail) {
             $this->stok += $detail->stok;
