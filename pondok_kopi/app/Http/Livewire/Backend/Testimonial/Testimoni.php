@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Backend\Testimoni;
+namespace App\Http\Livewire\Backend\Testimonial;
 
 use Livewire\Component;
 use App\Http\Livewire\Backend\Redirec;
@@ -19,7 +19,7 @@ class Testimoni extends Component
         //ini coding untuk memanggil data daari database
         $dataTestimoni = User::where('level', 'pelanggan')->orderBy('id', 'DESC')->get();
 
-        return view('livewire.backend.testimoni.testimoni', [
+        return view('livewire.backend.testimonial.testimoni', [
             'dataTestimoni' => $dataTestimoni
         ]);
     }

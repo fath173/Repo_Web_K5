@@ -56,11 +56,11 @@ Auth::routes();
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', Landingpage::class)->name('/');
 
 Route::group(['middleware' => 'guest'], function () {
     // Route::get('/home', Landingpage::class);
 
-    Route::get('/', Landingpage::class);
     Route::get('/loginn', loginn::class)->name('loginn');
     Route::get('/registerr', regis::class)->name('registerr');
     Route::get('/products', Product::class);
@@ -68,9 +68,9 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('/gallery', GalleryFrontend::class);
 });
 
+// Route::get('/', Landingpage::class);
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('/', Landingpage::class);
     // URL untuk Halaman Pelanggan atau Landing Page
     Route::get('/cart', Cart::class);
     Route::get('/checkout', Checkout::class);
