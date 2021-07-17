@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app') --}}
 
 @if (empty(Auth::user()) || Auth::user()->level == 'pelanggan')
     @section('content')
@@ -12,16 +12,17 @@
                             <div class="row justify-content-between align-items-center">
                                 <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
                                     <div class="hero__caption">
-                                        <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Pondok Kopi
+                                        <h1 data-animation="fadeInLeft" data-delay=".4s" data-duration="2000ms">Jember Coffe
+                                            Center
                                         </h1>
                                         <p data-animation="fadeInLeft" data-delay=".7s" data-duration="2000ms">Menikmati
                                             kopi dengan
-                                            penuh kemewahan dengan produk dari pondok kopi 57.58. Tarik sis!
+                                            penuh kemewahan dengan produk dari Jember Coffe Center
                                         </p>
                                         <!-- Hero-btn -->
                                         <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s"
                                             data-duration="2000ms">
-                                            <a href="industries.html" class="btn hero-btn">Shop Now</a>
+                                            <a href="/products" class="btn hero-btn">Shop Now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -38,6 +39,7 @@
                 </div>
             </div>
             <!-- slider Area End-->
+
             <!-- ? New Product Start -->
             <section class="new-product-area section-padding30">
                 <div class="container">
@@ -45,88 +47,68 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="section-tittle mb-70">
-                                <h2>New Arrivals</h2>
+                                <h2>Produk Terbaru</h2>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-pro mb-30 text-center">
-                                <div class="product-img">
-                                    <img src="{{ asset('frontend/produk/arabica.jpg') }}" alt="">
-                                </div>
-                                <div class="product-caption">
-                                    <h3><a href="products/4">Kopi Arabica</a></h3>
-                                    <span>Harga Fantastis</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-pro mb-30 text-center">
-                                <div class="product-img">
-                                    <img src="{{ asset('frontend/produk/robusta.jpg') }}" alt="">
-                                </div>
-                                <div class="product-caption">
-                                    <h3><a href="products/5">Kopi Robusta</a></h3>
-                                    <span>Harga Terjangkau</span>
+                        @foreach ($products as $product)
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                <div class="single-new-pro mb-30 text-center">
+                                    <div class="product-img">
+                                        <img src="{{ asset('storage/product/' . $product->gambar) }}" alt="">
+                                    </div>
+                                    <div class="product-caption">
+                                        <h3><a href="products/{{ $product->id }}">{{ $product->nama_produk }}</a></h3>
+                                        <span>New Produts</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                            <div class="single-new-pro mb-30 text-center">
-                                <div class="product-img">
-                                    <img src="{{ asset('frontend/produk/biji2.jpg') }}" alt="">
-                                </div>
-                                <div class="product-caption">
-                                    <h3><a href="products/9">Biji Kopi</a></h3>
-                                    <span>Masih Proses</span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </section>
             <!--  New Product End -->
             <!--? Gallery Area Start -->
-            {{-- <div class="gallery-area">
-            <div class="container-fluid p-0 fix">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-gallery mb-30">
-                            <div class="gallery-img big-img"
-                                style="background-image: url({{ asset('frontend/assets/img/gallery/gallery1.png') }});">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-gallery mb-30">
-                            <div class="gallery-img big-img"
-                                style="background-image: url({{ asset('frontend/assets/img/gallery/gallery2.png') }});">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-12">
-                        <div class="row">
-                            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
-                                <div class="single-gallery mb-30">
-                                    <div class="gallery-img small-img"
-                                        style="background-image: url({{ asset('frontend/assets/img/gallery/gallery3.png') }});">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-12 col-lg-12  col-md-6 col-sm-6">
-                                <div class="single-gallery mb-30">
-                                    <div class="gallery-img small-img"
-                                        style="background-image: url({{ asset('frontend/assets/img/gallery/gallery4.png') }});">
-                                    </div>
+            <div class="gallery-area">
+                <div class="container-fluid p-0 fix">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-4 col-md-6 col-sm-6">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img big-img"
+                                    style="background-image: url({{ asset('frontend/banner/banner4.jpg') }});">
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                            <div class="single-gallery mb-30">
+                                <div class="gallery-img big-img"
+                                    style="background-image: url({{ asset('frontend/banner/banner3.jpg') }});">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-12">
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-6 col-sm-6">
+                                    <div class="single-gallery mb-30">
+                                        <div class="gallery-img small-img"
+                                            style="background-image: url({{ asset('frontend/produk/arabica.jpg') }});">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12  col-md-6 col-sm-6">
+                                    <div class="single-gallery mb-30">
+                                        <div class="gallery-img small-img"
+                                            style="background-image: url({{ asset('frontend/produk/robusta.jpg') }});">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
                 </div>
             </div>
-        </div> --}}
             <!-- Gallery Area End -->
             <!--? Popular Items Start -->
             {{-- <div class="popular-items section-padding30">
@@ -255,7 +237,7 @@
         </div> --}}
             <!-- Popular Items End -->
             <!--? Video Area Start -->
-            <div class="video-area">
+            <div class="video-area" style="background-image:url({{ asset('frontend/logo/JCCCoklat.png') }});">
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-lg-12">
@@ -269,8 +251,8 @@
                     <!-- Arrow -->
                     <div class="thumb-content-box">
                         <div class="thumb-content">
-                            <h3>Next Video</h3>
-                            <a href="#"> <i class="flaticon-arrow"></i></a>
+                            <h3>Profile Video</h3>
+                            {{-- <a href="#"> <i class="flaticon-arrow"></i></a> --}}
                         </div>
                     </div>
                 </div>
@@ -354,8 +336,8 @@
                                 <div class="single-footer-caption mb-30">
                                     <!-- logo -->
                                     <div class="footer-logo">
-                                        <a href="index.html"><img src="{{ asset('frontend/logo/logo_pkopi2.png') }}"
-                                                alt="" width="200px"></a>
+                                        <a href="index.html"><img src="{{ asset('frontend/logo/JCCCoklat.png') }}" alt=""
+                                                width="200px"></a>
                                     </div>
                                     <div class="footer-tittle">
                                         <div class="footer-pera">
@@ -409,12 +391,10 @@
                             <div class="footer-copy-right">
                                 <p>
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;<script>
+                                    <script>
                                         document.write(new Date().getFullYear());
-
-                                    </script> All rights reserved | This template is made with <i class="fa fa-heart"
-                                        aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                        target="_blank">Colorlib</a>
+                                    </script> Design website <i class="fa fa-heart" aria-hidden="true"></i> by
+                                    <a href="." target="_blank">JCC Jember</a>
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 </p>
                             </div>

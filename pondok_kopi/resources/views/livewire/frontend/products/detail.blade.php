@@ -116,17 +116,6 @@
                 Livewire.emit('btnKeranjang', id)
             }
         })
-        btnKeranjang2.addEventListener('click', function() {
-            var id = idVariation.value
-            if (id <= 0) {
-                $('#alert').empty();
-                $('#alert').append(
-                    `<div class="alert alert-warning fade show"><span type="button" class="close" data-dismiss="alert">&times;</span><b>Silahkan pilih <b>Variasi!</b></div>`
-                );
-            } else {
-                Livewire.emit('btnKeranjang2', id)
-            }
-        })
 
         function btnReady() {
             buttonSm[i].addEventListener("click", function() {
@@ -158,7 +147,6 @@
             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
             return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
         }
-
     </script>
 
 @endpush

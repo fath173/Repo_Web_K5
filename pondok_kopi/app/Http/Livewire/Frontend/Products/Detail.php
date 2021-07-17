@@ -13,7 +13,6 @@ class Detail extends Component
     public $stok = 0;
     protected $listeners = [
         'btnKeranjang' => 'addItems',
-        'btnKeranjang2' => 'addItemz'
     ];
     public function mount($id)
     {
@@ -37,11 +36,6 @@ class Detail extends Component
     {
         $this->showModal();
         $this->addItem($id);
-    }
-    public function addItemz($id)
-    {
-        $this->addItem($id);
-        return redirect()->to('/cart');
     }
 
     public function addItem($id)

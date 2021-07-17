@@ -22,8 +22,8 @@ class Account extends Component
     public function render()
     {
         $user = User::find(Auth()->id());
-        $this->province = $user->province;
-        $this->district = $user->district;
+        // $this->province = $user->province;
+        // $this->district = $user->district;
         // $this->address = $user->address;
 
         return view('livewire.frontend.accounts.account', [

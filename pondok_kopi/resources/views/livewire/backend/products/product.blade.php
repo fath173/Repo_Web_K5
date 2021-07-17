@@ -70,6 +70,7 @@
                             <th>No</th>
                             <th>Nama Produk</th>
                             <th>Gambar</th>
+                            <th>Gambar Mobile</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -79,6 +80,9 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $product->nama_produk }}</td>
                                 <td><img src="{{ asset('storage/product/' . $product->gambar) }}"
+                                        style="width: 100px">
+                                </td>
+                                <td><img src="{{ asset('storage/product/' . $product->gambar_mobile) }}"
                                         style="width: 100px">
                                 </td>
                                 <td>
@@ -151,6 +155,37 @@
                                                                     src="{{ asset('storage/product/' . $product->gambar) }}"
                                                                     style="width: 100px" alt="Preview">
                                                             @endif
+                                                            <div class="custom-file mt-3">
+                                                                <input type="file" wire:model="photo_mobile"
+                                                                    id="customFile" accept="image/*"
+                                                                    class="custom-file-input" style="cursor: pointer">
+                                                                <label for="customFile" class="custom-file-label">Pilih
+                                                                    Gambar Mobile</label>
+                                                                @error('photo_mobile')<small
+                                                                    class="text-danger">{{ $message }}</small>@enderror
+                                                            </div>
+                                                            @if ($photo_mobile)
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <label class="mt-2">Gambar Mobile</label> <br>
+                                                                        <img class="mt-2"
+                                                                            src="{{ asset('storage/product/' . $product->gambar_mobile) }}"
+                                                                            style="width: 100px" alt="Preview">
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <label class="mt-2">Preview</label> <br>
+                                                                        <img class="mt-2"
+                                                                            src="{{ $photo_mobile->temporaryUrl() }}"
+                                                                            style="width: 100px" alt="Preview">
+                                                                    </div>
+                                                                </div>
+
+                                                            @else
+                                                                <label class="mt-2">Gambar Mobile</label> <br>
+                                                                <img class="mt-2"
+                                                                    src="{{ asset('storage/product/' . $product->gambar_mobile) }}"
+                                                                    style="width: 100px" alt="Preview">
+                                                            @endif
                                                             <div class="form-group mt-3">
                                                                 <label for="cc-payment" class="control-label mb-1">
                                                                     Deskripsi</label>
@@ -188,6 +223,5 @@
         $(".modalProduk").on('hide.bs.modal', function() {
             Livewire.emit('resetField')
         })
-
     </script>
 @endpush

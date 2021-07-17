@@ -45,7 +45,7 @@
                                     <td>
                                         <div class="media">
                                             <div class="d-flex">
-                                                <img src="{{ asset('storage/images/' . $cart['attributes']->image) }}"
+                                                <img src="{{ asset('storage/product/' . $cart['attributes']->image) }}"
                                                     alt="" />
                                             </div>
                                             <div class="media-body">
@@ -163,4 +163,4 @@
             </div>
     </section>
     <!--================End Cart Area =================-->
-</main>>
+</main>

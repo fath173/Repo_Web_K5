@@ -13,7 +13,7 @@ class Product extends Component
 {
     use WithFileUploads;
     public $nama_produk, $deskripsi;
-    public $photo;
+    public $photo, $photo_mobile;
 
     protected $listeners = ['resetField', 'deleteProduk'];
 
@@ -69,6 +69,7 @@ class Product extends Component
     {
         $this->validate([
             'photo' => 'image|max:1024',
+            'photo_mobile' => 'image|max:1024',
         ]);
     }
 
@@ -94,6 +95,26 @@ class Product extends Component
                     'deskripsi' => $this->deskripsi,
                 ]);
             $this->photo = '';
+        } else if ($this->photo_mobile) {
+            $this->validate([
+                'photo_mobile' => 'image|max:1024|required',
+                'nama_produk' => 'required:max:15',
+                'deskripsi' => 'required',
+            ]);
+            $namePhoto = md5($this->photo_mobile . microtime() . '.' . $this->photo_mobile->extension());
+            Storage::putFileAs(
+                'public/product',
+                $this->photo_mobile,
+                $namePhoto
+            );
+
+            ProductModel::where('id', $id)
+                ->update([
+                    'nama_produk' => $this->nama_produk,
+                    'gambar_mobile' => $namePhoto,
+                    'deskripsi' => $this->deskripsi,
+                ]);
+            $this->photo_mobile = '';
         } else {
             $this->validate([
                 'nama_produk' => 'required:max:15',

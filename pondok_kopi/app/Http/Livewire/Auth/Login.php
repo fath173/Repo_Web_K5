@@ -14,15 +14,16 @@ class Login extends Component
 
     public $msg = '';
 
-    public function submit(){
+    public function submit()
+    {
         $this->validate([
             'form.email' => 'required|email',
             'form.password' => 'required',
         ]);
 
         $check = Auth::attempt($this->form, false);
-        if($check){
-            return redirect()->route('home');
+        if ($check) {
+            return redirect()->route('/');
         }
 
         session()->flash('message', [

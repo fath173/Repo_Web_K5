@@ -276,7 +276,7 @@
                     <div class="blog-author mt-3 shadow-sm">
                         <table class="table table-borderless ">
                             <tbody>
-                                @foreach ($ordersDetail['detail'][0][0] as $detail)
+                                @foreach ($ordersDetail['detail'] as $detail)
                                     <tr>
                                         <td colspan="3">
                                             <div class="row">

@@ -24,6 +24,7 @@ use App\Http\Livewire\Frontend\Accounts\Address;
 use App\Http\Livewire\Frontend\Carts\Cart;
 use App\Http\Livewire\Frontend\Carts\Checkout;
 use App\Http\Livewire\Frontend\Gallery\Galeri as GalleryFrontend;
+use App\Http\Livewire\Frontend\Landingpage;
 use App\Http\Livewire\Frontend\Orders\Orders;
 use App\Http\Livewire\Frontend\Orders\OrdersDetail;
 use App\Http\Livewire\Frontend\Orders\Payment;
@@ -43,33 +44,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('livewire.frontend.index');
-});
+// Route::get('/', function () {
+//     return view('livewire.frontend.index');
+// });
 
-Route::get('/admin/main', function () {
-    return view('layouts.backend.main');
-});
+// Route::get('/admin/main', function () {
+//     return view('layouts.backend.main');
+// });
 
 Auth::routes();
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => 'guest'], function(){
+Route::group(['middleware' => 'guest'], function () {
+    // Route::get('/home', Landingpage::class);
 
+    Route::get('/', Landingpage::class);
     Route::get('/loginn', loginn::class)->name('loginn');
     Route::get('/registerr', regis::class)->name('registerr');
-    Route::get('/', function () {
-        return view('livewire.frontend.index');
-    });
+    Route::get('/products', Product::class);
+    Route::get('/products/{id}', Detail::class);
+    Route::get('/gallery', GalleryFrontend::class);
 });
 
 Route::group(['middleware' => ['auth']], function () {
 
+    Route::get('/', Landingpage::class);
     // URL untuk Halaman Pelanggan atau Landing Page
-    Route::get('/products', Product::class);
-    Route::get('/products/{id}', Detail::class);
     Route::get('/cart', Cart::class);
     Route::get('/checkout', Checkout::class);
     Route::get('/account', Account::class);
@@ -78,7 +80,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/orders-detail/{id}', OrdersDetail::class);
     Route::get('/orders-payment/{id}', Payment::class);
     Route::get('/orders-purchase/{id}', PurchaseOrders::class);
-    Route::get('/gallery', GalleryFrontend::class);
 
     // URL untuk Dashboard/Admin
     Route::get('/admin-orders', adminOrder::class);

@@ -23,4 +23,8 @@ class Product_variation extends Model
         // lalu tentukan id pada foreign key, baru id dari induk
         // yang ditampilin Foreignkey dulu baru relasinya atau Induknya
     }
+    public function orders()
+    {
+        return $this->belongsTo(Order::class, "id_pesanan", "id");
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Frontend\Carts;
 
+use App\Http\Livewire\Frontend\Redirectt;
 use Livewire\Component;
 use App\Models\Product_variation as variations;
 use Carbon\Carbon;
@@ -15,6 +16,7 @@ class Cart extends Component
 
     public function render()
     {
+
         $variations = variations::all();
 
         $condition = new \Darryldecode\Cart\CartCondition([

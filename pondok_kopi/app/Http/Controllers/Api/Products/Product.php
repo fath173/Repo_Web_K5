@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Products;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product as allProduct;
+use App\Models\Product as VariasiModel;
 
 class Product extends Controller
 {
@@ -12,61 +13,37 @@ class Product extends Controller
 
     public function index()
     {
-        $product = allProduct::all();
+        $product = allProduct::get();
+        // return response()->json($product, 200);
+
         return response()->json([
-            'message' => 'success',
+            'message' => 'success Alhamdulilah',
             'data' => $product,
         ]);
     }
 
     public function detailProduct($id)
     {
-        $details = allProduct::where('id', $id)->get();
-        $variasi = $details[0]->variasi;
+        $details = VariasiModel::where('id', $id)->get();
         $stok = 0;
+        $variasi = [];
 
         foreach ($details[0]->variasi as $detail) {
             $stok += $detail->stok;
+            $variasi[] = [
+                'id_variasi' => $detail->id,
+                'nama_variasi' => $detail->nama_variasi,
+                'berat' => $detail->berat,
+                'stok' => $detail->stok,
+                'harga' => $detail->harga,
+            ];
         }
 
         return response()->json([
-            'message' => 'success',
-            'data' => $variasi,
+            'message' => 'success ambil detail',
             'totalStok' => $stok,
+            'variasi' => $variasi,
+
         ]);
-    }
-
-
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }

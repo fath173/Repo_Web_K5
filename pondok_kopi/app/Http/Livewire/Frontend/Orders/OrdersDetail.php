@@ -65,9 +65,10 @@ class OrdersDetail extends Component
         $orders = Order::where('id', $this->id_orders)->get();
         return $orders;
     }
+
     public function detailOrders($id)
     {
-        $ordersDetail[] = [DB::table('order_details')
+        $ordersDetail = DB::table('order_details')
             ->Join(
                 'product_variations',
                 'order_details.id_variasi',
@@ -79,10 +80,10 @@ class OrdersDetail extends Component
                 '=',
                 'products.id',
             )->where('order_details.id_pesanan', '=', $id)
-            ->get()];
-
+            ->get();
+        // dd($ordersDetail);
         $subtotal = 0;
-        foreach ($ordersDetail[0][0] as $detail) {
+        foreach ($ordersDetail as $detail) {
             $subtotal += $detail->subtotal;
         }
         return [
@@ -102,8 +103,11 @@ class OrdersDetail extends Component
     }
     public function confirmOrders()
     {
+        date_default_timezone_set('Asia/Jakarta');
+        $waktu = date('Y-m-d H:i:s');
         Order::where('id', $this->id_orders)
             ->update([
+                'tgl_terima' => $waktu,
                 'status' => 'selesai'
             ]);
     }

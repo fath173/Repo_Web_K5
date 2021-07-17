@@ -47,8 +47,12 @@ class Checkout extends Component
                 $variation->decrement('stok', $cart['quantity']);
             }
 
+            date_default_timezone_set('Asia/Jakarta');
+            $waktu = date('Y-m-d H:i:s');
+
             $id = Order::insertGetId([
                 'id_user' => Auth()->id(),
+                'tgl_pesan' => $waktu,
                 'ongkir' => $ongkir, // INI PERLU DIKIRIM DATANYA
                 'status' => 'belum bayar',
                 'total' => $total,
