@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\Testimonial;
 
 use App\Http\Controllers\Controller;
-use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,7 +10,7 @@ class Testimoni extends Controller
 {
     public function index()
     {
-        $testi = Testimonial::orderBy('id', 'DESC')->get();
+        // $testi = Testimonial::orderBy('id', 'DESC')->get();
         $tes = DB::table('testimonials')
             ->Join(
                 'users',

@@ -47,7 +47,6 @@ class Checkout extends Controller
             'status' => 'belum bayar',
             'total' => $request->total,
             'keterangan' => $request->keterangan,
-            'alasan' => '-',
             'alamat_kirim' => $request->alamat_kirim,
         ];
 

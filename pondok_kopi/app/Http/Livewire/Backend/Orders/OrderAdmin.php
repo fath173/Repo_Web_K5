@@ -7,6 +7,8 @@ use Livewire\Component;
 use App\Models\Order;
 use Illuminate\Support\Facades\DB;
 use App\Http\Livewire\Backend\Redirec;
+use App\Models\Order_detail;
+use App\Models\Product_variation as variations;
 
 class OrderAdmin extends Component
 {
@@ -51,7 +53,11 @@ class OrderAdmin extends Component
         $this->validate([
             'alasan_tolak' => 'required',
         ]);
-
+        $data = Order_detail::where('id_pesanan', $id)->get();
+        foreach ($data as $item) {
+            $variation = variations::find($item['id_variasi']);
+            $variation->increment('stok', $item['qty']);
+        }
         Order::where('id', $id)
             ->update([
                 'status' => 'dibatalkan',

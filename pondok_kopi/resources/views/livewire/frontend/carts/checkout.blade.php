@@ -34,8 +34,8 @@
                                     <td>
                                         <div class="media">
                                             <div class="d-flex">
-                                                <img src="{{ asset('storage/images/' . $cart['attributes']->image) }}"
-                                                    alt="" />
+                                                <img src="{{ asset('storage/product/' . $cart['attributes']->image) }}"
+                                                    alt="" width="80px" />
                                             </div>
                                             <div class="media-body">
                                                 <p>{{ $cart['name'] }} <br>
@@ -159,7 +159,6 @@
         //     total = grandtotal
         //     totalbayar.innerHTML = 'Rp ' + grandtotal
         // })
-
     </script>
 
 @endpush

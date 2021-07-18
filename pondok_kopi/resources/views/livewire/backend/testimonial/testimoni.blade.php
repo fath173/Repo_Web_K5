@@ -10,23 +10,25 @@
                         <tr>
                             <th>No</th>
                             <th>Nama Pelanggan</th>
-                            <th>Jenis Kelamin</th>
-                            <th>No Telepon</th>
+                            <th>Tanggal</th>
+                            <th>Kesan</th>
+                            <th>Tampilkan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($dataTestimoni as $key => $testimoni)
+                        @foreach ($dataTestimoni as $testimoni)
                             <tr>
                                 <td>
                                     {{ $loop->iteration }}
                                 </td>
                                 <td>{{ $testimoni->name }}</td>
-                                <td>{{ $testimoni->gender }}</td>
-                                <td>{{ $testimoni->phone_number }} </td>
+                                <td>{{ $testimoni->tgl_testi }}</td>
+                                <td>{{ $testimoni->kesan }} </td>
+                                <td>{{ $testimoni->status_baca }} </td>
                                 <td><button type="button" class="btn btn-sm btn-info mb-1" data-toggle="modal"
                                         data-target="#mediumModal{{ $testimoni->id }}">
-                                        Detail
+                                        Edit
                                     </button>
                                 </td>
                             </tr>
@@ -39,36 +41,29 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
 
-                
-                                           
-                                            <h5 class="modal-title" id="mediumModalLabel">Detail Pesanan:
-                                                <b>{{ $testimoni->name }} {{ $testimoni->id }}</b>
+                                            <h5 class="modal-title" id="mediumModalLabel">Status Baca:
+                                                <b>{{ $testimoni->status_baca }}</b>
                                             </h5>
                                         </div>
                                         <div class="modal-body">
+                                            <div class="row border-top mb-3 mt-2">
+                                                <div class="col-2">
+                                                    Kesan:
+                                                </div>
+                                                <div class="col-3">
+                                                    {{ $testimoni->kesan }}}
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                            
-                                                <div class="row border-top mb-3 mt-2">
-                                                Email :
-                                                <div class="col-3" > 
-                                               {{ $testimoni->email }}
-                                                 </div>
-                                                 </div>
-                                                
-                                                 <div class="row border-top mb-3 mt-2">
-                                                 Alamat :
-                                                <div class="col">
-                                                {{ $testimoni->address }}
-                                              </div>
-                                              </div>                 
-                                              </div>                  
-                                                            
-                                                         
-                                                     
                                         <div class="modal-footer">
-                                            <button type="button" wire:click="cancelPelanggan('{{ $testimoni->id }}')"
-                                                class="btn btn-danger">Tolak</button>
-
+                                            @if ($testimoni->status_baca == 'Yes')
+                                                <button type="button" wire:click="blokir('{{ $testimoni->id }}')"
+                                                    class="btn btn-danger">BLOKIR</button>
+                                            @else
+                                                <button type="button" wire:click="bukaBlokir('{{ $testimoni->id }}')"
+                                                    class="btn btn-success">BUKA BLOKIR</button>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

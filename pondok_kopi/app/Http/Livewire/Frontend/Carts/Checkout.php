@@ -57,7 +57,6 @@ class Checkout extends Component
                 'status' => 'belum bayar',
                 'total' => $total,
                 'keterangan' => $keterangan,
-                'alasan' => '-',
                 'alamat_kirim' => $this->address
             ]);
 

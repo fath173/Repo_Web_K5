@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Product_variation as variations;
 
 class Orders extends Controller
 {
@@ -125,7 +126,12 @@ class Orders extends Controller
 
     public function cancelOrder($id)
     {
-        // dd($this->id_orders);
+        $data = Order_detail::where('id_pesanan', $id)->get();
+        foreach ($data as $item) {
+            $variation = variations::find($item['id_variasi']);
+            $variation->increment('stok', $item['qty']);
+        }
+
         AllOrder::where('id', $id)
             ->update([
                 'status' => 'dibatalkan',

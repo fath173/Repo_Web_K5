@@ -34,7 +34,7 @@
                                          <th scope="col"></th>
                                          <th scope="col">
                                              <h3 class="text-right">Status Pesanan |
-                                                 <b class="text-danger">{{ $order->status }}</b> {{ $order->id }}
+                                                 <b class="text-danger">{{ $order->status }}</b>
                                              </h3>
                                          </th>
                                      </tr>

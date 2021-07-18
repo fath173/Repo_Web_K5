@@ -74,9 +74,7 @@
                                                     <li><a href="{{ route('registerr') }}">Daftar</a></li>
                                                 @endif
                                             @else
-
                                                 {{-- <li><a href="/cart">Keranjang</a></li> --}}
-
                                                 <li><a href="/">{{ Auth::user()->name }}</a>
                                                     <ul class="submenu">
                                                         <li><a href="/account">Akun Saya</a></li>
@@ -124,6 +122,7 @@
             {{-- @include('layouts.frontend.navbar') --}}
             @yield('content')
             {{ isset($slot) ? $slot : null }}
+            @include('layouts.frontend.footer')
         </div>
         @include('layouts.frontend.js')
         @include('layouts.swal')
@@ -175,13 +174,13 @@
                 <!-- Animated -->
                 <div class="animated fadeIn">
                     @yield('content')
+
                     {{ isset($slot) ? $slot : null }}
                 </div>
                 <!-- .animated -->
             </div>
             <!-- /.content -->
             <div class="clearfix"></div>
-
 
             <!-- Footer -->
             <footer class="site-footer">

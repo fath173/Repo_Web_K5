@@ -5,8 +5,6 @@ use App\Http\Livewire\Auth\Login as loginn;
 use App\Http\Livewire\Auth\Register as regis;
 // use App\Http\Livewire\Auth\Logout;
 
-
-
 // untuk backend
 use App\Http\Controllers\Backend\orderadmin;
 use App\Http\Livewire\Backend\Gallery\Galeri;
@@ -57,20 +55,22 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', Landingpage::class)->name('/');
+Route::get('/products', Product::class);
+Route::get('/products/{id}', Detail::class);
+Route::get('/gallery', GalleryFrontend::class);
 
 Route::group(['middleware' => 'guest'], function () {
     // Route::get('/home', Landingpage::class);
 
     Route::get('/loginn', loginn::class)->name('loginn');
     Route::get('/registerr', regis::class)->name('registerr');
-    Route::get('/products', Product::class);
-    Route::get('/products/{id}', Detail::class);
-    Route::get('/gallery', GalleryFrontend::class);
 });
 
-// Route::get('/', Landingpage::class);
-Route::group(['middleware' => ['auth']], function () {
 
+Route::group(['middleware' => ['auth']], function () {
+    // Route::get('/products', Product::class);
+    // Route::get('/products/{id}', Detail::class);
+    // Route::get('/gallery', GalleryFrontend::class);
     // URL untuk Halaman Pelanggan atau Landing Page
     Route::get('/cart', Cart::class);
     Route::get('/checkout', Checkout::class);

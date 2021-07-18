@@ -34,6 +34,10 @@ class Detail extends Component
 
     public function addItems($id)
     {
+        if (!Auth()->id()) {
+
+            return redirect()->to('/loginn');
+        }
         $this->showModal();
         $this->addItem($id);
     }

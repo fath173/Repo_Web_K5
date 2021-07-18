@@ -5,7 +5,9 @@ namespace App\Http\Livewire\Frontend\Orders;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
+use App\Models\Order_detail;
 use App\Models\Testimonial;
+use App\Models\Product_variation as variations;
 use Mockery\Undefined;
 
 class OrdersDetail extends Component
@@ -95,6 +97,12 @@ class OrdersDetail extends Component
     public function cancelOrders()
     {
         // dd($this->id_orders);
+        $data = Order_detail::where('id_pesanan', $this->id_orders)->get();
+        foreach ($data as $item) {
+            $variation = variations::find($item['id_variasi']);
+            $variation->increment('stok', $item['qty']);
+        }
+        // dd($data[0]['qty']);
         Order::where('id', $this->id_orders)
             ->update([
                 'status' => 'dibatalkan',

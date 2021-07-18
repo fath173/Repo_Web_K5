@@ -7,25 +7,25 @@
                     <a href="/"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                 </li>
                 <li class="{{ Nav::isResource('admin-petugas') }}">
-                    <a href="/admin-petugas"><i class="menu-icon fa fa-laptop"></i>Petugas </a>
+                    <a href="/admin-petugas"><i class="menu-icon fa fa-user"></i>Petugas </a>
                 </li>
                 <li class="{{ Nav::isResource('admin-pelanggan') }}">
-                    <a href="/admin-pelanggan"><i class="menu-icon fa fa-laptop"></i>Pelanggan </a>
+                    <a href="/admin-pelanggan"><i class="menu-icon fa fa-users"></i>Pelanggan </a>
                 </li>
                 <li class="{{ Nav::isResource('admin-orders') }}">
-                    <a href="/admin-orders"><i class="menu-icon fa fa-laptop"></i>Pesanan </a>
+                    <a href="/admin-orders"><i class="menu-icon fa fa-tasks"></i>Pesanan </a>
                 </li>
                 <li class="{{ Nav::isResource('admin-products') }}">
                     <a href="/admin-products"><i class="menu-icon fa fa-laptop"></i>Produk </a>
                 </li>
                 <li class="{{ Nav::isResource('admin-galeri') }}">
-                    <a href="/admin-galeri"><i class="menu-icon fa fa-laptop"></i>Galeri </a>
+                    <a href="/admin-galeri"><i class="menu-icon fa fa-th"></i>Galeri </a>
                 </li>
                 <li class="{{ Nav::isResource('admin-testimoni') }}">
-                    <a href="/admin-testimoni"><i class="menu-icon fa fa-laptop"></i>Testimoni </a>
+                    <a href="/admin-testimoni"><i class="menu-icon fa fa-smile-o"></i>Testimoni </a>
                 </li>
                 <li class="{{ Nav::isResource('admin-laporan') }}">
-                    <a href="/admin-laporan"><i class="menu-icon fa fa-laptop"></i>Laporan Pesanan </a>
+                    <a href="/admin-laporan"><i class="menu-icon fa fa-file-o"></i>Laporan Pesanan </a>
                 </li>
                 <li><a href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
